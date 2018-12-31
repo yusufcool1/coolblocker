@@ -1,0 +1,18 @@
+{
+  "name": "coolblocker",
+  "version": "0.0.1",
+  "description": "",
+  "main": "bot.js",
+  "dependencies": {
+    "anti-spam": "^0.2.7",
+    "chalk": "^2.4.1",
+    "discord.js": "^11.4.2",
+    "moment": "^2.23.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node bot.js"
+  },
+  "author": "Arguee",
+  "license": "ISC"
+}
