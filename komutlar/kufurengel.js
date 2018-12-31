@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-let kufurEngel = JSON.parse(fs.readFileSync("././jsonlar/kufurEngelle.json", "utf8"));
+let küfürEngel = JSON.parse(fs.readFileSync("././jsonlar/küfürEngelle.json", "utf8"));
 
 var ayarlar = require('../ayarlar.json');
 
@@ -14,31 +14,31 @@ exports.run = (client, message) => {
 	var errembed = new Discord.RichEmbed()
 	.setColor("RANDOM")
 	.setDescription(`Yanlış Kullanım!`)
-	.addField(`Doğru Kullanım:`, `${ayarlar.prefix}kufur-engelle aç veya kapat`)
+	.addField(`Doğru Kullanım:`, `${ayarlar.prefix}küfür-engelle aç veya kapat`)
 	if(secenekler.length < 1) return message.channel.send(errembed);
 	//if(secenekler === "aç" || "kapat") return message.channel.send(errembed);
-  	if(secenekler.length < 1) return message.reply("Link Engelleme Açmak İçin `cb!kufur-engelle aç` kapatmak için `cb!kufur-engelle kapat`").then(m => m.delete(10000));
+  	if(secenekler.length < 1) return message.reply("Link Engelleme Açmak İçin `cb!küfür-engelle aç` kapatmak için `cb!küfür-engelle kapat`").then(m => m.delete(10000));
 
     message.delete();
 
 			if (secenekler === "aç") {
-		message.channel.send(`kufur Engelleme Sistemi: **açık**!`).then(m => m.delete(5000));
-		kufurEngel[message.guild.id] = {
-			kufurEngel: "acik"
+		message.channel.send(`Küfür Engelleme Sistemi: **açık**!`).then(m => m.delete(5000));
+		küfürEngel[message.guild.id] = {
+			küfürEngel: "acik"
 		  };
 
-		  fs.writeFile("././jsonlar/kufurEngelle.json", JSON.stringify(kufurEngel), (err) => {
+		  fs.writeFile("././jsonlar/küfürEngelle.json", JSON.stringify(küfürEngel), (err) => {
 			if (err) console.log(err)
 		  });
 	};
 
 	if (secenekler === "kapat") {
-		message.channel.send(`kufur Engelleme Sistemi: **kapalı**!`).then(m => m.delete(5000));
-		kufurEngel[message.guild.id] = {
-			kufurEngel: "kapali"
+		message.channel.send(`Küfür Engelleme Sistemi: **kapalı**!`).then(m => m.delete(5000));
+		küfürEngel[message.guild.id] = {
+			küfürEngel: "kapali"
 		  };
 
-		fs.writeFile("././jsonlar/kufurEngelle.json", JSON.stringify(kufurEngel), (err) => {
+		fs.writeFile("././jsonlar/küfürEngelle.json", JSON.stringify(küfürEngel), (err) => {
 			if (err) console.log(err)
 		  });
 	};
@@ -52,7 +52,7 @@ exports.run = (client, message) => {
 	  };
 
 	  exports.help = {
-		name: 'küfür-engelle',
-		description: 'kufur engelleme sistemini açıp kapatmanızı sağlar.',
+		name: 'küfürengelle',
+		description: 'Küfür engelleme sistemini açıp kapatmanızı sağlar.',
 		usage: 'cb!küfür-engelle <aç> veya <kapat>'
 	  };

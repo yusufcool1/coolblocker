@@ -4,7 +4,7 @@ const bot = new Discord.Client();
 const ayarlar = require('./ayarlar.json');
 const chalk = require('chalk');
 const fs = require('fs');
-let kufurEngel = JSON.parse(fs.readFileSync("./jsonlar/kufurEngelle.json", "utf8"));
+let küfürEngel = JSON.parse(fs.readFileSync("./jsonlar/küfürEngelle.json", "utf8"));
 const moment = require('moment');
 require('./util/eventLoader')(client);
 
@@ -23,17 +23,50 @@ client.on("ready", () => {
 
 client.on("message", msg => {
   if (!msg.guild) return;
-  if (!kufurEngel[msg.guild.id]) return;
-  if (kufurEngel[msg.guild.id].küfürEngel === 'kapali') return;
-    if (kufurEngel[msg.guild.id].küfürEngel=== 'acik') {
-      const kufur = ["mk", "amk", "aq", "orospu", "oruspu", "oç", "sikerim", "yarrak", "piç", "amq", "sik", "amcık", "çocu", "sex", "seks", "amına", "orospu çocuğu", "sg", "siktir git"];
-  if (kufur.some(word => msg.content.toLowerCase().includes(word)) ) {
+  if (!küfürEngel[msg.guild.id]) return;
+  if (küfürEngel[msg.guild.id].küfürEngel === 'kapali') return;
+    if (küfürEngel[msg.guild.id].küfürEngel=== 'acik') {
+      const küfür = ["mk", "amk", "aq", "orospu", "oruspu", "oç", "sikerim", "yarrak", "piç", "amq", "sik", "amcık", "çocu", "sex", "seks", "amına", "orospu çocuğu", "sg", "siktir git"];
+  if (küfür.some(word => msg.content.toLowerCase().includes(word)) ) {
     if (!msg.member.hasPermission("ADMINISTRATOR")) {
       msg.delete()
        msg.reply("Bu sunucuda küfürler **Cool Blocker** tarafından engellenmektedir! Küfür etmene izin vermeyeceğim!").then(message => message.delete(3000));
     }
 }
     }
+});
+
+client.on("guildMemberAdd", async member => {
+        let sayac = JSON.parse(fs.readFileSync("./otorol.json", "utf8"));
+  let otorole =  JSON.parse(fs.readFileSync("./otorol.json", "utf8"));
+      let arole = otorole[member.guild.id].sayi
+  let giriscikis = JSON.parse(fs.readFileSync("./otorol.json", "utf8"));
+  let embed = new Discord.RichEmbed()
+    .setTitle('Otorol Sistemi')
+    .setDescription(`:loudspeaker: :inbox_tray:  @${member.user.tag}'a Otorol Verildi `)
+.setColor("GREEN")
+    .setFooter("Gnarge", client.user.avatarURL);
+
+  if (!giriscikis[member.guild.id].kanal) {
+    return;
+  }
+
+  try {
+    let giriscikiskanalID = giriscikis[member.guild.id].kanal;
+    let giriscikiskanali = client.guilds.get(member.guild.id).channels.get(giriscikiskanalID);
+    giriscikiskanali.send(`:loudspeaker: :white_check_mark: Hoşgeldin **${member.user.tag}** Rolün Başarıyla Verildi.`);
+  } catch (e) { // eğer hata olursa bu hatayı öğrenmek için hatayı konsola gönderelim.
+    return console.log(e)
+  }
+
+});
+
+client.on("guildMemberAdd", async (member) => {
+      let autorole =  JSON.parse(fs.readFileSync("./otorol.json", "utf8"));
+      let role = autorole[member.guild.id].sayi
+
+      member.addRole(role)
+
 });
 
 antispam(client, {
